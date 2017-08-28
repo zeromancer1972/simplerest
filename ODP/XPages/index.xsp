@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:var url = facesContext.getExternalContext().getRequest().getRequestURI();
+if(url.indexOf(".xsp")==-1){
+	if(url.endsWith("/")){
+		url = url.substr(0, url.length-1)
+	}
+	context.redirectToPage(url+view.getPageName())
+}}]]></xp:this.beforePageLoad>
+	<xp:link
+		escape="true"
+		text="CLICK ME"
+		id="link1"
+		value="./index.xsp/rest?id=boing">
+	</xp:link>
+	<xe:restService
+		id="restService1"
+		pathInfo="rest">
+		<xe:this.service>
+			<xe:customRestService
+				serviceBean="net.notesx.JSONService"
+				contentType="application/json">
+			</xe:customRestService>
+		</xe:this.service>
+	</xe:restService>
+</xp:view>
